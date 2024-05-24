@@ -1,5 +1,5 @@
 ==========
-Django JET 5
+Django JET 2
 ==========
 
 Coming soon! Currently updating the deprecated repo to launch a new Django Jet that supports Django 5.
