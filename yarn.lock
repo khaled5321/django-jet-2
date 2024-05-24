@@ -32,10 +32,6 @@ align-text@^0.1.1, align-text@^0.1.3:
     longest "^1.0.1"
     repeat-string "^1.5.2"
 
-almond@~0.3.1:
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/almond/-/almond-0.3.3.tgz#a0e7c95ac7624d6417b4494b1e68bff693168a20"
-
 amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
@@ -1588,14 +1584,10 @@ istextorbinary@1.0.2:
     binaryextensions "~1.0.0"
     textextensions "~1.0.0"
 
-jquery-mousewheel@~3.1.13:
-  version "3.1.13"
-  resolved "https://registry.yarnpkg.com/jquery-mousewheel/-/jquery-mousewheel-3.1.13.tgz#06f0335f16e353a695e7206bf50503cb523a6ee5"
-
 "jquery-ui@git://github.com/jquery/jquery-ui#1.13.3":
-  version "1.13.2"
-  uid d6c028cc2e214a4f9f3a787313ef03a17a33a008
-  resolved "git://github.com/jquery/jquery-ui#d6c028cc2e214a4f9f3a787313ef03a17a33a008"
+  version "1.13.3"
+  uid a9e8520d38e06b6a37100762ddc8af4952926752
+  resolved "git://github.com/jquery/jquery-ui#a9e8520d38e06b6a37100762ddc8af4952926752"
   dependencies:
     jquery ">=1.8.0 <4.0.0"
 
@@ -2683,12 +2675,9 @@ sass-graph@^2.1.1:
     lodash "^4.0.0"
     yargs "^4.7.1"
 
-select2@4.0.6:
-  version "4.0.6"
-  resolved "https://registry.yarnpkg.com/select2/-/select2-4.0.6.tgz#88697c96e08b65a5963c2806c1d5eefbceec0a7e"
-  dependencies:
-    almond "~0.3.1"
-    jquery-mousewheel "~3.1.13"
+select2@4.0.13:
+  version "4.0.13"
+  resolved "https://registry.yarnpkg.com/select2/-/select2-4.0.13.tgz#0dbe377df3f96167c4c1626033e924372d8ef44d"
 
 "semver@2 || 3 || 4 || 5", semver@~5.3.0:
   version "5.3.0"
