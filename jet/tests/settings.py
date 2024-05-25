@@ -65,6 +65,7 @@ LANGUAGE_CODE = 'en-US'
 USE_I18N = True
 USE_L10N = True
 SITE_ID = 1
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 MEDIA_ROOT = ''
 MEDIA_URL = ''
