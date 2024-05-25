@@ -1,20 +1,15 @@
+from collections import OrderedDict
+
+from django import forms
 from django.contrib.admin import RelatedFieldListFilter
+from django.contrib.admin.utils import get_model_from_relation
+from django.contrib.admin.widgets import AdminDateWidget
+from django.forms.utils import flatatt
+from django.urls import reverse
 from django.utils.encoding import smart_str
 from django.utils.html import format_html
-try:
-    from django.core.urlresolvers import reverse
-except ImportError: # Django 1.11
-    from django.urls import reverse
-
-try:
-    from django.contrib.admin.utils import get_model_from_relation
-except ImportError: # Django 1.6
-    from django.contrib.admin.util import get_model_from_relation
-
-try:
-    from django.forms.utils import flatatt
-except ImportError: # Django 1.6
-    from django.forms.util import flatatt
+from django.utils.translation import gettext as _
+from rangefilter.filters import DateRangeFilter as OriginalDateRangeFilter
 
 
 class RelatedFieldAjaxListFilter(RelatedFieldListFilter):
@@ -25,7 +20,7 @@ class RelatedFieldAjaxListFilter(RelatedFieldListFilter):
         return True
 
     def field_choices(self, field, request, model_admin):
-        model = field.remote_field.model if hasattr(field, 'remote_field') else field.related_field.model
+        model = field.remote_field.model
         app_label = model._meta.app_label
         model_name = model._meta.object_name
 
@@ -49,43 +44,32 @@ class RelatedFieldAjaxListFilter(RelatedFieldListFilter):
         return [(x._get_pk_val(), smart_str(x)) for x in queryset]
 
 
-try:
-    from collections import OrderedDict
-    from django import forms
-    from django.contrib.admin.widgets import AdminDateWidget
-    from rangefilter.filter import DateRangeFilter as OriginalDateRangeFilter
-    from django.utils.translation import ugettext as _
+class DateRangeFilter(OriginalDateRangeFilter):
+    def get_template(self):
+        return 'rangefilter/date_filter.html'
 
+    def _get_form_fields(self):
+        # this is here, because in parent DateRangeFilter AdminDateWidget
+        # could be imported from django-suit
+        return OrderedDict((
+            (self.lookup_kwarg_gte, forms.DateField(
+                label='',
+                widget=AdminDateWidget(attrs={'placeholder': _('From date')}),
+                localize=True,
+                required=False
+            )),
+            (self.lookup_kwarg_lte, forms.DateField(
+                label='',
+                widget=AdminDateWidget(attrs={'placeholder': _('To date')}),
+                localize=True,
+                required=False
+            )),
+        ))
 
-    class DateRangeFilter(OriginalDateRangeFilter):
-        def get_template(self):
-            return 'rangefilter/date_filter.html'
+    @staticmethod
+    def _get_media():
+        css = ['style.css']
+        return forms.Media(
+            css={'all': ['range_filter/css/%s' % path for path in css]}
+        )
 
-        def _get_form_fields(self):
-            # this is here, because in parent DateRangeFilter AdminDateWidget
-            # could be imported from django-suit
-            return OrderedDict((
-                (self.lookup_kwarg_gte, forms.DateField(
-                    label='',
-                    widget=AdminDateWidget(attrs={'placeholder': _('From date')}),
-                    localize=True,
-                    required=False
-                )),
-                (self.lookup_kwarg_lte, forms.DateField(
-                    label='',
-                    widget=AdminDateWidget(attrs={'placeholder': _('To date')}),
-                    localize=True,
-                    required=False
-                )),
-            ))
-
-        @staticmethod
-        def _get_media():
-            css = [
-                'style.css',
-            ]
-            return forms.Media(
-                css={'all': ['range_filter/css/%s' % path for path in css]}
-            )
-except ImportError:
-    pass

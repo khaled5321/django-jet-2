@@ -30,7 +30,14 @@ classifiers = [
     'Topic :: Software Development :: User Interfaces',
 ]
 dynamic = ["version"]
-dependencies = ["Django>=4.2"]
+dependencies = [
+    "Django>=4.2",
+    "django-admin-rangefilter>=0.13.0",
+]
+
+[project.optional-dependencies]
+dev = ["ruff"]
+feed = ["feedparser"]
 
 [tool.setuptools.dynamic]
 version = { attr = "jet.VERSION" }

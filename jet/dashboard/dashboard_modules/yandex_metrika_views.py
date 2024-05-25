@@ -1,16 +1,12 @@
-from django.conf.urls import url
 from django.contrib import messages
-try:
-    from django.core.urlresolvers import reverse
-except ImportError: # Django 1.11
-    from django.urls import reverse
-
 from django.http import HttpResponse
 from django.shortcuts import redirect
+from django.urls import re_path, reverse
+from django.utils.translation import gettext_lazy as _
+
+from jet.dashboard import dashboard
 from jet.dashboard.dashboard_modules.yandex_metrika import YandexMetrikaClient
 from jet.dashboard.models import UserDashboardModule
-from jet.dashboard import dashboard
-from django.utils.translation import gettext_lazy as _
 
 
 def yandex_metrika_grant_view(request, pk):
@@ -50,17 +46,17 @@ def yandex_metrika_callback_view(request):
 
 
 dashboard.urls.register_urls([
-    url(
+    re_path(
         r'^yandex-metrika/grant/(?P<pk>\d+)/$',
         yandex_metrika_grant_view,
         name='yandex-metrika-grant'
     ),
-    url(
+    re_path(
         r'^yandex-metrika/revoke/(?P<pk>\d+)/$',
         yandex_metrika_revoke_view,
         name='yandex-metrika-revoke'
     ),
-    url(
+    re_path(
         r'^yandex-metrika/callback/$',
         yandex_metrika_callback_view,
         name='yandex-metrika-callback'

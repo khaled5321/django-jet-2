@@ -1,13 +1,10 @@
 from django.contrib import admin
-from django.test import TestCase, RequestFactory
+from django.contrib.admin.utils import get_fields_from_path
+from django.test import RequestFactory, TestCase
 from django.utils.encoding import smart_str
+
 from jet.filters import RelatedFieldAjaxListFilter
 from jet.tests.models import RelatedToTestModel, TestModel
-
-try:
-    from django.contrib.admin.utils import get_fields_from_path
-except ImportError: # Django 1.6
-    from django.contrib.admin.util import get_fields_from_path
 
 
 class FiltersTestCase(TestCase):
@@ -40,9 +37,9 @@ class FiltersTestCase(TestCase):
 
     def test_related_field_ajax_list_filter_with_initial(self):
         initial = self.models[1]
-        request = self.factory.get('url', {'field__id__exact': initial.pk})
+        request = self.factory.get('url')
         field, lookup_params, model, model_admin, field_path = self.get_related_field_ajax_list_filter_params()
-        list_filter = RelatedFieldAjaxListFilter(field, request, lookup_params, model, model_admin, field_path)
+        list_filter = RelatedFieldAjaxListFilter(field, request, {'field__id__exact': initial.pk}, model, model_admin, field_path)
 
         self.assertTrue(list_filter.has_output())
 
@@ -51,4 +48,3 @@ class FiltersTestCase(TestCase):
         self.assertIsInstance(choices, list)
         self.assertEqual(len(choices), 1)
         self.assertEqual(choices[0], (initial.pk, smart_str(initial)))
-

@@ -1,16 +1,15 @@
 from django import forms
-try:
-    from django.core.urlresolvers import reverse
-except ImportError: # Django 1.11
-    from django.urls import reverse
+from django.contrib.auth.models import User
+from django.test import RequestFactory, TestCase
+from django.urls import reverse
 
-from django.test import TestCase
-from jet.templatetags.jet_tags import jet_select2_lookups, jet_next_object, jet_previous_object
-from jet.tests.models import TestModel, SearchableTestModel
-from django.test.client import RequestFactory
+from jet.templatetags.jet_tags import jet_next_object, jet_previous_object, jet_select2_lookups
+from jet.tests.models import SearchableTestModel, TestModel
+
 
 class TagsTestCase(TestCase):
     def setUp(self):
+        self.user = User.objects.create(username='test')
         self.models = []
         self.searchable_models = []
 
@@ -70,10 +69,12 @@ class TagsTestCase(TestCase):
             TestModel._meta.model_name
         ), args=(self.models[1].pk,)) + '?' + preserved_filters
 
+        request = RequestFactory().get(expected_url)
+        request.user = self.user
         context = {
             'original': instance,
             'preserved_filters': preserved_filters,
-            'request': RequestFactory().get(expected_url),
+            'request': request,
         }
 
         actual_url = jet_next_object(context)['url']
@@ -90,10 +91,12 @@ class TagsTestCase(TestCase):
             TestModel._meta.model_name
         ), args=(self.models[1].pk,)) + '?' + preserved_filters
 
+        request = RequestFactory().get(changelist_url)
+        request.user = self.user
         context = {
             'original': instance,
             'preserved_filters': preserved_filters,
-            'request': RequestFactory().get(changelist_url),
+            'request': request,
         }
 
         previous_object = jet_previous_object(context)
