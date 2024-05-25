@@ -207,7 +207,8 @@ def get_model_queryset(admin_site, model, request, preserved_filters=None):
         request, model, list_display, list_display_links, list_filter,
         model_admin.date_hierarchy, search_fields, list_select_related,
         model_admin.list_per_page, model_admin.list_max_show_all,
-        model_admin.list_editable, model_admin]
+        model_admin.list_editable, model_admin, model_admin.search_help_text
+    ]
 
     try:
         sortable_by = model_admin.get_sortable_by(request)

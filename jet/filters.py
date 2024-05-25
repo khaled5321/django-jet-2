@@ -20,7 +20,7 @@ class RelatedFieldAjaxListFilter(RelatedFieldListFilter):
         return True
 
     def field_choices(self, field, request, model_admin):
-        model = field.remote_field.model if hasattr(field, 'remote_field') else field.related_field.model
+        model = field.remote_field.model
         app_label = model._meta.app_label
         model_name = model._meta.object_name
 
