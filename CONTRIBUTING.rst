@@ -1,7 +1,7 @@
 Contributing
 ============
 
-Django JET is open-source and every member of the community can contribute to it. We are happy to see patches
+Django JET 2 is open-source and every member of the community can contribute to it. We are happy to see patches
 and improvements with Django JET. But please keep in mind that there are some guidelines you should follow.
 
 .. _requirements:
@@ -9,9 +9,8 @@ and improvements with Django JET. But please keep in mind that there are some gu
 Requirements
 ------------
 
-* Git master branch should always be stable
+* Git main branch should always be stable
 * All pull requests are made to git dev branch
-* Non AGPL compatible code is not eligible for inclusion
 
 Guidelines For Reporting An Issue/Feature
 -----------------------------------------
@@ -20,7 +19,7 @@ So you've found a bug or have a great idea for a feature. Here's the steps you s
 to help get it added/fixed in Django JET:
 
 * First check if there's an existing issue/pull request for this bug/feature. Issues can be found here
-  https://github.com/geex-arts/django-jet/issues, PRs here https://github.com/geex-arts/django-jet/pulls
+  https://github.com/khaled5321/django-jet-2/issues, PRs here https://github.com/khaled5321/django-jet-2/pulls
 * If there isn't one there, please add an issue. The ideal report includes:
 
   * A description of the problem/suggestion
