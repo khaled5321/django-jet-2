@@ -8,7 +8,7 @@ from django.forms.utils import flatatt
 from django.urls import reverse
 from django.utils.encoding import smart_str
 from django.utils.html import format_html
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from rangefilter.filters import DateRangeFilter as OriginalDateRangeFilter
 
 
