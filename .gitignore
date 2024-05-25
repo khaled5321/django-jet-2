@@ -1,6 +1,8 @@
 *.pyc
 *.DS_Store
 *.egg*
+.vscode
+/venv
 /dist/
 /.idea
 /docs/_build/
