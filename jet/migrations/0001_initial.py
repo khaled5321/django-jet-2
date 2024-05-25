@@ -1,8 +1,5 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
-from django.db import models, migrations
 import django.utils.timezone
+from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
@@ -50,8 +47,8 @@ class Migration(migrations.Migration):
                 ('user', models.PositiveIntegerField(verbose_name='user')),
                 ('column', models.PositiveIntegerField(verbose_name='column')),
                 ('order', models.IntegerField(verbose_name='order')),
-                ('settings', models.TextField(default=b'', verbose_name='settings', blank=True)),
-                ('children', models.TextField(default=b'', verbose_name='children', blank=True)),
+                ('settings', models.TextField(default='', verbose_name='settings', blank=True)),
+                ('children', models.TextField(default='', verbose_name='children', blank=True)),
                 ('collapsed', models.BooleanField(default=False, verbose_name='collapsed')),
             ],
             options={

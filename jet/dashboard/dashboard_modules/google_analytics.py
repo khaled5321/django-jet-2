@@ -1,34 +1,28 @@
 # encoding: utf-8
 import datetime
 import json
-from django import forms
-try:
-    from django.core.urlresolvers import reverse
-except ImportError: # Django 1.11
-    from django.urls import reverse
 
+import httplib2
+from django import forms
+from django.conf import settings
 from django.forms import Widget
+from django.forms.utils import flatatt
+from django.urls import reverse
 from django.utils import formats
+from django.utils.encoding import force_str
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
-from googleapiclient.discovery import build
-import httplib2
-from jet.dashboard.modules import DashboardModule
-from oauth2client.client import flow_from_clientsecrets, OAuth2Credentials, AccessTokenRefreshError, Storage
 from django.utils.translation import gettext_lazy as _
-from django.conf import settings
-from django.utils.encoding import force_str
+from googleapiclient.discovery import build
+from oauth2client.client import (
+    AccessTokenRefreshError,
+    OAuth2Credentials,
+    Storage,
+    flow_from_clientsecrets,
+)
 
-try:
-    from django.utils.encoding import force_unicode
-except ImportError:
-    from django.utils.encoding import force_str as force_unicode
-
-try:
-    from django.forms.utils import flatatt
-except ImportError:
-    from django.forms.util import flatatt
+from jet.dashboard.modules import DashboardModule
 
 JET_MODULE_GOOGLE_ANALYTICS_CLIENT_SECRETS_FILE = getattr(
     settings,
@@ -160,7 +154,7 @@ class CredentialWidget(Widget):
             'type': 'hidden',
             'name': 'credential',
         })
-        attrs['value'] = force_unicode(value) if value else ''
+        attrs['value'] = force_str(value) if value else ''
 
         return format_html('%s<input{} />' % link, flatatt(attrs))
 
