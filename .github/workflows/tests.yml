@@ -1,0 +1,53 @@
+name: Python CI
+
+on:
+  push:
+    branches:
+      - dev
+      - main
+  pull_request:
+    branches:
+      - dev
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: [3.10, 3.11, 3.12, pypy]
+        django-version: ["<4.2", "<5.0"]
+
+    env:
+      DJANGO_SETTINGS_MODULE: jet.tests.settings
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          pip install "Django${{ matrix.django-version }}"
+          pip install .
+          pip install coverage==7.5.1
+          pip install coveralls==4.0.1
+
+      - name: Run tests
+        run: |
+          coverage run --source=jet --omit=*/migrations/*,*/tests/* manage.py test jet
+
+      - name: Coverage report
+        run: |
+          coverage report
+
+      - name: Upload coverage to Coveralls
+        run: |
+          coveralls
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
