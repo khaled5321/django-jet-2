@@ -16,8 +16,8 @@ jobs:
 
     strategy:
       matrix:
-        python-version: ['3.10', 3.11, 3.12, 'pypy3.10']
-        django-version: ["=4.2", "=5.0"]
+        python-version: ['3.10', 3.11, 3.12]
+        django-version: ["==4.2", "==5.0"]
 
     env:
       DJANGO_SETTINGS_MODULE: jet.tests.settings
