@@ -1,30 +1,22 @@
 # encoding: utf-8
 import datetime
 import json
-from django import forms
-try:
-    from django.core.urlresolvers import reverse
-except ImportError: # Django 1.11
-    from django.urls import reverse
+from urllib import request
+from urllib.error import HTTPError, URLError
+from urllib.parse import urlencode
 
+from django import forms
+from django.conf import settings
 from django.forms import Widget
+from django.urls import reverse
 from django.utils import formats
+from django.utils.encoding import force_str
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
-from jet.dashboard.modules import DashboardModule
 from django.utils.translation import gettext_lazy as _
-from django.conf import settings
-from django.utils.encoding import force_str
 
-try:
-    from urllib import request
-    from urllib.parse import urlencode
-    from urllib.error import URLError, HTTPError
-except ImportError:
-    import urllib2 as request
-    from urllib2 import URLError, HTTPError
-    from urllib import urlencode
+from jet.dashboard.modules import DashboardModule
 
 JET_MODULE_YANDEX_METRIKA_CLIENT_ID = getattr(settings, 'JET_MODULE_YANDEX_METRIKA_CLIENT_ID', '')
 JET_MODULE_YANDEX_METRIKA_CLIENT_SECRET = getattr(settings, 'JET_MODULE_YANDEX_METRIKA_CLIENT_SECRET', '')

@@ -1,5 +1,7 @@
-from django.test import TestCase
 import pickle
+
+from django.test import TestCase
+
 from jet.ordered_set import OrderedSet
 
 

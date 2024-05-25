@@ -1,30 +1,35 @@
 from __future__ import unicode_literals
+
 import json
 import os
-from django import template
-try:
-    from django.core.urlresolvers import reverse
-except ImportError: # Django 1.11
-    from django.urls import reverse
+from urllib.parse import parse_qsl
 
-from django.forms import CheckboxInput, ModelChoiceField, Select, ModelMultipleChoiceField, SelectMultiple
+from django import template
 from django.contrib.admin.widgets import RelatedFieldWidgetWrapper
+from django.forms import (
+    CheckboxInput,
+    ModelChoiceField,
+    ModelMultipleChoiceField,
+    Select,
+    SelectMultiple,
+)
+from django.urls import reverse
+from django.utils.encoding import smart_str
 from django.utils.formats import get_format
 from django.utils.safestring import mark_safe
-from django.utils.encoding import smart_str
-from jet import settings, VERSION
+
+from jet import VERSION, settings
 from jet.models import Bookmark
-from jet.utils import get_model_instance_label, get_model_queryset, get_possible_language_codes, \
-    get_admin_site, get_menu_items
-
-try:
-    from urllib.parse import parse_qsl
-except ImportError:
-    from urlparse import parse_qsl
-
+from jet.utils import (
+    get_admin_site,
+    get_menu_items,
+    get_model_instance_label,
+    get_model_queryset,
+    get_possible_language_codes,
+)
 
 register = template.Library()
-assignment_tag = register.assignment_tag if hasattr(register, 'assignment_tag') else register.simple_tag
+assignment_tag = register.simple_tag
 
 
 @assignment_tag

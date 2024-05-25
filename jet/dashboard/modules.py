@@ -1,11 +1,13 @@
+import datetime
 import json
+
 from django import forms
 from django.contrib.admin.models import LogEntry
 from django.db.models import Q
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
-from jet.utils import get_app_list, LazyDateTimeEncoder, context_to_dict
-import datetime
+
+from jet.utils import LazyDateTimeEncoder, context_to_dict, get_app_list
 
 
 class DashboardModule(object):
@@ -592,7 +594,7 @@ class Feed(DashboardModule):
                 for entry in entries:
                     try:
                         entry.date = datetime.date(*entry.published_parsed[0:3])
-                    except:
+                    except Exception:
                         pass
 
                     self.children.append(entry)
