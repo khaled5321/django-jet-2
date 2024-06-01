@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.forms.formsets import formset_factory
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_GET, require_POST
@@ -15,7 +15,7 @@ from jet.dashboard.forms import (
     UpdateDashboardModulesForm,
 )
 from jet.dashboard.models import UserDashboardModule
-from jet.utils import JsonResponse, SuccessMessageMixin, get_app_list, user_is_authenticated
+from jet.utils import SuccessMessageMixin, get_app_list, user_is_authenticated
 
 
 class UpdateDashboardModuleView(SuccessMessageMixin, UpdateView):
