@@ -21,22 +21,26 @@
 {% jet_get_time_format as time_format %}
 {% jet_get_datetime_format as datetime_format %}
 
+<script src="{% static "jet/js/build/bundle.min.js" as url %}{{ url|jet_append_version }}"></script>
 <script type="text/javascript" charset="utf-8">
     var DATE_FORMAT = "{{ date_format }}";
     var TIME_FORMAT = "{{ time_format }}";
     var DATETIME_FORMAT = "{{ datetime_format }}";
 </script>
-<script src="{% static "jet/js/build/bundle.min.js" as url %}{{ url|jet_append_version }}"></script>
 
 {% jet_static_translation_urls as translation_urls %}
 {% for url in translation_urls %}
 <script src="{% static url as url %}{{ url|jet_append_version }}"></script>
 {% endfor %}
 
+<script type="text/javascript" src="{% static "admin/js/vendor/jquery/jquery.js" %}"></script>
+<script type="text/javascript" src="{% static "admin/js/jquery.init.js" %}"></script>
+
 {% block extrahead %}{% endblock %}
 {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
-</head>
+
 <script type="text/javascript" src="{% url 'jet:jsi18n' %}"></script>
+</head>
 
 <body class="{% if request.COOKIES.sidebar_pinned != 'false' %}menu-pinned {% endif %}{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}"
   data-admin-utc-offset="{% now "Z" %}">
