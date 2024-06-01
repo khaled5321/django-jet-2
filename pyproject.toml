@@ -8,11 +8,14 @@ authors = [
     { name = "Denis Kildishev", email = "support@jet.geex-arts.com" },
     { name = "Khaled Emad", email = "khaledemad656@gmail.com" },
 ]
+maintainers = [
+    { name = "Khaled Emad", email = "khaledemad656@gmail.com" }
+]
 description = "Modern template for Django admin interface with improved functionality"
 readme = "README.rst"
 requires-python = ">=3.10"
 keywords = ["Django", "Django Admin", "jet"]
-license = { text = "MIT" }
+license = { text = "AGPLv3" }
 classifiers = [
     'Development Status :: 5 - Production/Stable',
     'Framework :: Django',
@@ -43,12 +46,18 @@ feed = ["feedparser"]
 version = { attr = "jet.VERSION" }
 
 [tool.ruff]
-line-length = 100
+line-length = 120
 indent-width = 4
 
 [tool.ruff.lint]
-select = ["E4", "E7", "E9", "F"]
-ignore = []
+select = [
+    "E",    # PEP8 errors
+    "W",    # PEP8 warnings
+    "F",    # PyFlakes
+    "I",    # isort
+    "C",    # mccabe
+    "T201", # flake8-print
+]
 
 [tool.ruff.format]
 quote-style = "double"
