@@ -13,7 +13,7 @@ from rangefilter.filters import DateRangeFilter as OriginalDateRangeFilter
 
 
 class RelatedFieldAjaxListFilter(RelatedFieldListFilter):
-    template = 'jet/related_field_ajax_list_filter.html'
+    template = "jet/related_field_ajax_list_filter.html"
     ajax_attrs = None
 
     def has_output(self):
@@ -24,18 +24,23 @@ class RelatedFieldAjaxListFilter(RelatedFieldListFilter):
         app_label = model._meta.app_label
         model_name = model._meta.object_name
 
-        self.ajax_attrs = format_html('{0}', flatatt({
-            'data-app-label': app_label,
-            'data-model': model_name,
-            'data-ajax--url': reverse('jet:model_lookup'),
-            'data-queryset--lookup': self.lookup_kwarg
-        }))
+        self.ajax_attrs = format_html(
+            "{0}",
+            flatatt(
+                {
+                    "data-app-label": app_label,
+                    "data-model": model_name,
+                    "data-ajax--url": reverse("jet:model_lookup"),
+                    "data-queryset--lookup": self.lookup_kwarg,
+                }
+            ),
+        )
 
         if self.lookup_val is None:
             return []
 
         other_model = get_model_from_relation(field)
-        if hasattr(field, 'rel'):
+        if hasattr(field, "rel"):
             rel_name = field.rel.get_related_field().name
         else:
             rel_name = other_model._meta.pk.name
@@ -46,30 +51,35 @@ class RelatedFieldAjaxListFilter(RelatedFieldListFilter):
 
 class DateRangeFilter(OriginalDateRangeFilter):
     def get_template(self):
-        return 'rangefilter/date_filter.html'
+        return "rangefilter/date_filter.html"
 
     def _get_form_fields(self):
         # this is here, because in parent DateRangeFilter AdminDateWidget
         # could be imported from django-suit
-        return OrderedDict((
-            (self.lookup_kwarg_gte, forms.DateField(
-                label='',
-                widget=AdminDateWidget(attrs={'placeholder': _('From date')}),
-                localize=True,
-                required=False
-            )),
-            (self.lookup_kwarg_lte, forms.DateField(
-                label='',
-                widget=AdminDateWidget(attrs={'placeholder': _('To date')}),
-                localize=True,
-                required=False
-            )),
-        ))
+        return OrderedDict(
+            (
+                (
+                    self.lookup_kwarg_gte,
+                    forms.DateField(
+                        label="",
+                        widget=AdminDateWidget(attrs={"placeholder": _("From date")}),
+                        localize=True,
+                        required=False,
+                    ),
+                ),
+                (
+                    self.lookup_kwarg_lte,
+                    forms.DateField(
+                        label="",
+                        widget=AdminDateWidget(attrs={"placeholder": _("To date")}),
+                        localize=True,
+                        required=False,
+                    ),
+                ),
+            )
+        )
 
     @staticmethod
     def _get_media():
-        css = ['style.css']
-        return forms.Media(
-            css={'all': ['range_filter/css/%s' % path for path in css]}
-        )
-
+        css = ["style.css"]
+        return forms.Media(css={"all": ["range_filter/css/%s" % path for path in css]})

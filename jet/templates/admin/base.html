@@ -7,8 +7,8 @@
 <title>{% block title %}{% endblock %}</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-<link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static "admin/css/base.css" %}{% endblock %}" />
 
+<link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static "admin/css/base.css" %}{% endblock %}" />
 <link rel="stylesheet" type="text/css" href="{% static "jet/css/vendor.css" as url %}{{ url|jet_append_version }}" />
 <link rel="stylesheet" type="text/css" href="{% static "jet/css/icons/style.css" as url %}{{ url|jet_append_version }}" />
 <link rel="stylesheet" type="text/css" href="{% static "jet/css/themes/"|add:THEME|add:"/base.css" as url %}{{ url|jet_append_version }}" class="base-stylesheet" />
@@ -26,18 +26,17 @@
     var TIME_FORMAT = "{{ time_format }}";
     var DATETIME_FORMAT = "{{ datetime_format }}";
 </script>
-<script type="text/javascript" src="{% url 'jet:jsi18n' %}"></script>
 <script src="{% static "jet/js/build/bundle.min.js" as url %}{{ url|jet_append_version }}"></script>
 
 {% jet_static_translation_urls as translation_urls %}
 {% for url in translation_urls %}
-    <script src="{% static url as url %}{{ url|jet_append_version }}"></script>
+<script src="{% static url as url %}{{ url|jet_append_version }}"></script>
 {% endfor %}
 
 {% block extrahead %}{% endblock %}
 {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
 </head>
-{% load i18n %}
+<script type="text/javascript" src="{% url 'jet:jsi18n' %}"></script>
 
 <body class="{% if request.COOKIES.sidebar_pinned != 'false' %}menu-pinned {% endif %}{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}"
   data-admin-utc-offset="{% now "Z" %}">
