@@ -1,4 +1,7 @@
+from django.contrib import messages
+from django.contrib.auth import logout
 from django.http import JsonResponse
+from django.shortcuts import redirect
 from django.views.decorators.http import require_GET, require_POST
 
 from jet.forms import (
@@ -70,3 +73,20 @@ def model_lookup_view(request):
         result["error"] = True
 
     return JsonResponse(result)
+
+
+@require_GET
+def custom_logout(request):
+    """
+    The reason for the custom logout view is that the default django logout view
+    requires a POST request. So instead of making HTML changes, it is easier to
+    make custom logout view.
+    """
+    # log the user out
+    logout(request)
+
+    # show logout success message
+    messages.add_message(request, messages.SUCCESS, 'Logged out successfully.')
+
+    # redirect to the login page
+    return redirect('admin:login')

@@ -216,7 +216,7 @@ class DefaultIndexDashboard(Dashboard):
                 children=[
                     [_("Return to site"), "/"],
                     [_("Change password"), reverse("%s:password_change" % site_name)],
-                    [_("Log out"), reverse("%s:logout" % site_name)],
+                    [_("Log out"), reverse("jet:custom_logout")],
                 ],
                 column=0,
                 order=0,
