@@ -2,11 +2,11 @@ import json
 from datetime import date, datetime
 
 from django.contrib.admin import AdminSite
+from django.http import JsonResponse
 from django.test import TestCase
 
 from jet.tests.models import TestModel
 from jet.utils import (
-    JsonResponse,
     LazyDateTimeEncoder,
     get_admin_site,
     get_app_list,
